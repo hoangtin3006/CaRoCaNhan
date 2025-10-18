@@ -120,7 +120,69 @@ void Xoa_Nhay_Cu(int y, int x) {
     setTextColor(7); 
     cout << " " << conNhay << " "; 
 }
- 
+
+bool check_win_hang_ngang(int toadoY, int toadoX) {
+    luotChoi = banCo[toadoY][toadoX];
+    int count = 1;
+    for (int i = toadoX + 1; i < 12; i++) {
+        if (banCo[toadoY][i] == luotChoi) {
+            count++;
+        }
+        else break;
+    }
+
+    for (int i = toadoX - 1; i >= 0; i--) {
+        if (banCo[toadoY][i] == luotChoi) {
+            count++;
+        }
+        else break;
+    }
+    return count >= 5;
+}
+
+bool check_win_hang_doc(int toadoY, int toadoX) {
+    int count = 1;
+    luotChoi = banCo[toadoY][toadoX];
+    for (int i = toadoY + 1; i < 12; i++) {
+        if (banCo[i][toadoX] == luotChoi) count++;
+        else break;
+    }
+
+    for (int i = toadoY - 1; i >= 0; i--) {
+        if (banCo[i][toadoX] == luotChoi) count++;
+        else break;
+    }
+    return count >= 5;
+}
+
+bool check_win_hang_cheo_chinh(int toadoY, int toadoX) {
+    luotChoi = banCo[toadoY][toadoX];
+    int count = 1;
+    for (int i = toadoY + 1, j = toadoX + 1; i < 12 && j < 12; i++, j++) {
+        if (banCo[i][j] == luotChoi) count++;
+        else break;
+    }
+
+    for (int i = toadoY - 1, j = toadoX - 1; i >= 0 && j >= 0; i--, j--) {
+        if (banCo[i][j] == luotChoi) count++;
+        else break;
+    }
+    return count >= 5;
+}
+
+bool check_win_hang_cheo_phu(int toadoY, int toadoX) {
+    luotChoi = banCo[toadoY][toadoX];
+    int count = 1;
+    for (int i = toadoY + 1, j = toadoX - 1; i < 12 && j >= 0; i++, j--) {
+        if (banCo[i][j] == luotChoi) count++;
+        else break;
+    }
+    for (int i = toadoY - 1, j = toadoX + 1; i >= 0 && j < 12; i--, j++) {
+        if (banCo[i][j] == luotChoi) count++;
+        else break;
+    }
+    return count >= 5;
+}
 
 int main()
 {
@@ -160,6 +222,43 @@ int main()
                     banCo[toadoY][toadoX] = luotChoi;
                     Xoa_Nhay_Cu(toadoY, toadoX);
                     Ve_XO(toadoY, toadoX);
+                    if (check_win_hang_ngang(toadoY, toadoX) == true) {
+                        gotoXY(0, 2); 
+                        setTextColor(13); 
+                        cout << "Player " << (banCo[toadoY][toadoX] == 1 ? "X" : "O") << " WINS!" << endl;
+
+                        _getch(); 
+                       
+                        return 0;
+                    }
+                    else if (check_win_hang_doc(toadoY, toadoX) == true) {
+                        gotoXY(0, 2);
+                        setTextColor(13);
+                        cout << "Player " << (banCo[toadoY][toadoX] == 1 ? "X" : "O") << " WINS!" << endl;
+
+                        _getch();
+
+                        return 0;
+                    }
+                    else if (check_win_hang_cheo_chinh(toadoY, toadoX) == true) {
+                        gotoXY(0, 2);
+                        setTextColor(13);
+                        cout << "Player " << (banCo[toadoY][toadoX] == 1 ? "X" : "O") << " WINS!" << endl;
+
+                        _getch();
+
+                        return 0;
+                    }
+                    else if (check_win_hang_cheo_phu(toadoY, toadoX) == true) {
+                        gotoXY(0, 2);
+                        setTextColor(13);
+                        cout << "Player " << (banCo[toadoY][toadoX] == 1 ? "X" : "O") << " WINS!" << endl;
+
+                        _getch();
+
+                        return 0;
+                    }
+                    
 
                     if (luotChoi == 1) {
                         luotChoi = 2;
